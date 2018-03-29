@@ -40,7 +40,7 @@ var speed = 2;
 
 function executeFrame(direction, bool) {
     y = y++ + (incrementor);
-    incrementor += .01;
+    incrementor += .001;
 
     switch(direction) {
         case 'down':
@@ -58,7 +58,7 @@ function executeFrame(direction, bool) {
     }
 
 //gets rid of the old frame
-    c.clearRect(0,0, canv.width, canv.height);
+//     c.clearRect(0,0, canv.width, canv.height);
 
 //Creating the circle
     for (let i = 0; i < Math.floor(document.body.clientWidth / radius); i++) {
@@ -82,10 +82,10 @@ function executeFrame(direction, bool) {
 }
 function executeUpFrame() {
     y = y-- + (incrementor * -1);
-    incrementor += .01;
+    incrementor += .001;
 
 //gets rid of the old frame
-//     c.clearRect(0,0, canv.width, canv.height);
+    c.clearRect(0,0, canv.width, canv.height);
 
     for (let i = 0; i < Math.floor(document.body.clientWidth / radius); i++) {
         c.beginPath();
@@ -104,10 +104,10 @@ function executeUpFrame() {
 }
 function executeDownwardFrame() {
     y = y++ + (incrementor);
-    incrementor += .01;
+    incrementor += .001;
 
 //gets rid of the old frame
-//     c.clearRect(0,0, canv.width, canv.height);
+    c.clearRect(0,0, canv.width, canv.height);
 
     for (let i = 0; i < Math.floor(document.body.clientWidth / radius); i++) {
         c.beginPath();
