@@ -5,10 +5,10 @@ canv.height = document.body.clientHeight;
 canvW = canv.width;
 canvH = canv.height;
 
-var x = document.body.clientWidth / 2,
-    y = document.body.clientHeight / 2,
+var x = 10,
+    y = 10,
     radius = 10,
-    incrementor = .001;
+    incrementor = .01;
 
 document.onkeydown = checkKey;
 
@@ -39,6 +39,9 @@ function checkKey(e) {
 var speed = 2;
 
 function executeFrame(direction, bool) {
+    y = y++ + (incrementor);
+    incrementor += .01;
+
     switch(direction) {
         case 'down':
             y += speed;
@@ -58,7 +61,7 @@ function executeFrame(direction, bool) {
     c.clearRect(0,0, canv.width, canv.height);
 
 //Creating the circle
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < Math.floor(document.body.clientWidth / radius); i++) {
         c.beginPath();
         c.arc(x + (20 * i), y, radius, 0, 2 * Math.PI);
         c.fillStyle = '#FF3200';
@@ -69,7 +72,7 @@ function executeFrame(direction, bool) {
 
     if (y < canv.height - radius) {
         //if we want to keep the animation going tell call it again
-        // requestAnimFrame(executeDownFrame);
+        requestAnimFrame(executeDownFrame);
     } else {
         //if you want the animation to end or change
         console.log('end');
@@ -82,7 +85,7 @@ function executeUpFrame() {
     incrementor += .01;
 
 //gets rid of the old frame
-    c.clearRect(0,0, canv.width, canv.height);
+//     c.clearRect(0,0, canv.width, canv.height);
 
     for (let i = 0; i < Math.floor(document.body.clientWidth / radius); i++) {
         c.beginPath();
@@ -96,11 +99,34 @@ function executeUpFrame() {
     if (y > radius) {
         requestAnimFrame(executeUpFrame);
     } else {
-        requestAnimFrame(executeDownFrame);
+        requestAnimFrame(executeDownwardFrame);
+    }
+}
+function executeDownwardFrame() {
+    y = y++ + (incrementor);
+    incrementor += .01;
+
+//gets rid of the old frame
+//     c.clearRect(0,0, canv.width, canv.height);
+
+    for (let i = 0; i < Math.floor(document.body.clientWidth / radius); i++) {
+        c.beginPath();
+        c.arc(x + (20 * i), y, radius, 0, 2 * Math.PI);
+        c.fillStyle = 'lightblue';
+        c.fill();
+        c.closePath();
+    }
+
+
+    if (y < canv.height - radius) {
+        requestAnimFrame(executeDownwardFrame);
+
+    } else {
+        requestAnimFrame(executeUpFrame);
     }
 }
 
 
 //Start animation
-executeFrame();
+executeDownwardFrame();
 
